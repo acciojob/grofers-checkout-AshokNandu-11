@@ -7,20 +7,19 @@ const getSum = () => {
   const priceElements = document.querySelectorAll(".price");
   let total = 0;
 
-  // Calculate total from all price values
+ 
   priceElements.forEach((element) => {
     total += parseFloat(element.textContent);
   });
 
-  // Check if total row already exists to avoid duplicates
   const existingTotalRow = document.getElementById("total-row");
   if (existingTotalRow) {
-    existingTotalRow.remove(); // Remove old total row if present
+    existingTotalRow.remove();
   }
 
-  // Create a new row and cell
+
   const totalRow = document.createElement("tr");
-  totalRow.id = "total-row"; // ID to prevent duplicate rows
+  totalRow.id = "total-row";
 
   const totalCell = document.createElement("td");
   totalCell.setAttribute("colspan", "2");
@@ -29,7 +28,6 @@ const getSum = () => {
 
   totalRow.appendChild(totalCell);
 
-  // Append the row to the existing table
   const table = document.querySelector("table");
   table.appendChild(totalRow);
 };
