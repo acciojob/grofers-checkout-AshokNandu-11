@@ -1,40 +1,48 @@
+// Create a button element to calculate total price
 const getSumBtn = document.createElement("button");
+// Set the button text
 getSumBtn.append("Get Total Price");
+// Add the button to the document body
 document.body.appendChild(getSumBtn);
 
+// Function to calculate and display the total price
 const getSum = () => {
-  // Select all elements with class 'price'
-  const priceElements = document.querySelectorAll(".price");
-  let total = 0;
-
-  // Calculate total from all price values
-  priceElements.forEach((element) => {
-    const price = parseFloat(element.textContent);
-    if (!isNaN(price)) { // Check if the price is a valid number
-      total += price;
+  // Disable the button to prevent multiple clicks
+  getSumBtn.disabled = true;
+  // Select all elements with class "price"
+  const prices = document.querySelectorAll(".price");
+  // Initialize sum variable
+  let sum = 0;
+  // Loop through each price element
+  prices.forEach((price) => {
+    // Convert the text content to an integer
+    const value = parseInt(price.textContent);
+    // Check if the value is a valid number
+    if (!isNaN(value)) {
+      // Add the value to the running sum
+      sum += value;
     }
   });
 
-  // Check if total row already exists to avoid duplicates
-  const existingTotalRow = document.getElementById("total-row");
-  if (existingTotalRow) {
-    existingTotalRow.remove(); // Remove old total row if present
-  }
+  // Create a new table row to display the total
+  const totalPriceRow = document.createElement("tr");
+  // Set an id for the row for easy reference
+  totalPriceRow.id = "ans";
+  // Create table cells for label and value
+  const totalPriceData = document.createElement("td");
+  const totalPriceAns = document.createElement("td");
+  // Append cells to the row
+  totalPriceRow.appendChild(totalPriceData);
+  totalPriceRow.appendChild(totalPriceAns);
+  // Set the text content for both cells
+  totalPriceData.append("Total Price (in Rs): ");
+  totalPriceAns.append(sum);
 
-  // Create a new row and cell
-  const totalRow = document.createElement("tr");
-  totalRow.id = "total-row"; // ID to prevent duplicate rows
-
-  const totalCell = document.createElement("td");
-  totalCell.setAttribute("colspan", "2");
-  totalCell.textContent = `Total Price: ₹${total}`;
-  totalCell.style.fontWeight = "bold";
-
-  totalRow.appendChild(totalCell);
-
-  // Append the row to the existing table
-  const table = document.querySelector("table");
-  table.appendChild(totalRow);
+  // Select the table body
+  const table = document.querySelector("tbody");
+  // Append the new row to the table
+  table.appendChild(totalPriceRow);
 };
 
+// Add click event listener to the button
 getSumBtn.addEventListener("click", getSum);
