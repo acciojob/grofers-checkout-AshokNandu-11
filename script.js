@@ -4,12 +4,15 @@ document.body.appendChild(getSumBtn);
 
 const getSum = () => {
   // Select all elements with class 'price'
-  const priceElements = document.querySelectorAll(".price"); // Ensure this matches your HTML
+  const priceElements = document.querySelectorAll(".price");
   let total = 0;
 
   // Calculate total from all price values
   priceElements.forEach((element) => {
-    total += parseFloat(element.textContent);
+    const price = parseFloat(element.textContent);
+    if (!isNaN(price)) { // Check if the price is a valid number
+      total += price;
+    }
   });
 
   // Check if total row already exists to avoid duplicates
